@@ -8,5 +8,3 @@ local uri_rewrite = require "uri_rewrite"
 scheme_lock.run()
 redirect.run()
 uri_rewrite.run()
-
-

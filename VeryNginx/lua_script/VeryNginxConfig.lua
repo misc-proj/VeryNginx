@@ -102,12 +102,10 @@ _M.configs["filter_rule"] = {
     {["matcher"] = 'attack_code_0', ["action"] = "block", ["code"] = '403', ["enable"] = true },
 }
 
-
 _M.configs["summary_request_enable"] = true
 ----------------------Config End-------------
 
 ------------------Config Updater----------------------
-
 function _M.version_updater_02( configs )
     configs['browser_verify_enable'] = false
     configs['browser_verify_rule'] = {}
@@ -121,17 +119,14 @@ function _M.version_updater_021( configs )
     return configs
 end
 
-
-
 _M.version_updater = {
     ['0.2'] = _M.version_updater_02,
     ['0.21'] = _M.version_updater_021,
 }
-
 -------------------Config Updater end---------------------
+
 local dkjson = require "dkjson"
 local json = require "json"
-
 
 function _M.home_path()
     local current_script_path = debug.getinfo(1, "S").source:sub(2)
@@ -147,7 +142,6 @@ function _M.update_config()
         _M.load_from_file()
     end
 end
-
 
 function _M.load_from_file()
     local config_dump_path = _M.home_path() .. "/config.json"
@@ -189,10 +183,10 @@ function _M.load_from_file()
         end
 
         return json.encode({["ret"]="success",['config']=_M["configs"]})
-    else 
+        
+    else
         return json.encode({["ret"]="error",["msg"]="config file decode error"})
     end
-        
 end 
 
 function _M.report()
@@ -240,12 +234,11 @@ function _M.set()
     end
 end
 
-
 function _M.dump_to_file( config_table )
     local config_data = dkjson.encode( config_table , {indent=true} )
     local config_dump_path = _M.home_path() .. "/config.json"
     
-    --ngx.log(ngx.STDERR,config_dump_path)
+    --ngx.log(ngx.STDERR, config_dump_path) --TODO
     local file, err = io.open( config_dump_path, "w")
     if file ~= nil then
         file:write(config_data)
